@@ -1,0 +1,12 @@
+apiVersion: alerts.kubevirt.io/v1alpha1
+kind: KubevirtAlert
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevirtalert
+    app.kubernetes.io/instance: kubevirtalert-sample
+    app.kubernetes.io/part-of: alerts-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: alerts-operator
+  name: kubevirtalert-sample
+spec:
+  # TODO(user): Add fields here

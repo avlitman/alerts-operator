@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts/status
+  verbs:
+  - get
+  - patch
+  - update

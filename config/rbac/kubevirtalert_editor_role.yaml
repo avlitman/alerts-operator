@@ -1,0 +1,31 @@
+# permissions for end users to edit kubevirtalerts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: kubevirtalert-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: alerts-operator
+    app.kubernetes.io/part-of: alerts-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: kubevirtalert-editor-role
+rules:
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts/status
+  verbs:
+  - get

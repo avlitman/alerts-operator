@@ -1,0 +1,27 @@
+# permissions for end users to view kubevirtalerts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: kubevirtalert-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: alerts-operator
+    app.kubernetes.io/part-of: alerts-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: kubevirtalert-viewer-role
+rules:
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - alerts.kubevirt.io
+  resources:
+  - kubevirtalerts/status
+  verbs:
+  - get
