@@ -40,6 +40,7 @@ type KubevirtAlertReconciler struct {
 //+kubebuilder:rbac:groups=alerts.kubevirt.io,resources=kubevirtalerts,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=alerts.kubevirt.io,resources=kubevirtalerts/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=alerts.kubevirt.io,resources=kubevirtalerts/finalizers,verbs=update
+//+kubebuilder:rbac:groups=monitoring.coreos.com,resources=prometheusrules,verbs=watch;list;get;update;create;patch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -86,7 +87,7 @@ func (r *KubevirtAlertReconciler) SetupWithManager(mgr ctrl.Manager) error {
 }
 
 func (r *KubevirtAlertReconciler) checkIfAlertExists(ctx context.Context, alert *alertsv1alpha1.KubevirtAlert) (bool, error) {
-	ruleName := alert.Spec.Metric.Name + "_alert"
+	ruleName := alert.Spec.Metric.Name + "-alert"
 	var promRule promv1.PrometheusRule
 
 	// try to get the alert from kubernetes API
@@ -107,7 +108,7 @@ func (r *KubevirtAlertReconciler) checkIfAlertExists(ctx context.Context, alert 
 
 func (r *KubevirtAlertReconciler) createPrometheusAlert(ctx context.Context, alert *alertsv1alpha1.KubevirtAlert) error {
 	// Constructing the rule name from the KubevirtAlert resource
-	ruleName := alert.Spec.Metric.Name + "_alert"
+	ruleName := alert.Spec.Metric.Name + "-alert"
 
 	// Creating a PrometheusRule object
 	promRule := &promv1.PrometheusRule{
@@ -118,7 +119,7 @@ func (r *KubevirtAlertReconciler) createPrometheusAlert(ctx context.Context, ale
 		Spec: promv1.PrometheusRuleSpec{
 			Groups: []promv1.RuleGroup{
 				{
-					Name: ruleName + "_group",
+					Name: ruleName + "-group",
 					Rules: []promv1.Rule{
 						{
 							Alert: ruleName,

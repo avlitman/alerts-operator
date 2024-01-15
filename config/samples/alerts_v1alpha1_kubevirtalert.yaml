@@ -9,4 +9,11 @@ metadata:
     app.kubernetes.io/created-by: alerts-operator
   name: kubevirtalert-sample
 spec:
+  metric:
+    name: aviv-metric
+    type: Counter
+    help: "helo test"
+  recordRule:
+    record: aviv-record
+    expr: aviv-metric > 0
   # TODO(user): Add fields here

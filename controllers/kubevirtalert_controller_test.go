@@ -23,12 +23,12 @@ var _ = Describe("Create alert rule", func() {
 			},
 			Spec: v1alpha1.KubevirtAlertSpec{
 				Metric: v1alpha1.MetricSpec{
-					Name: "test_metrics",
+					Name: "test-metrics",
 					Type: "Counter",
 					Help: "test metric",
 				},
 				RecordRule: v1alpha1.RecordRuleSpec{
-					Record: "record_test",
+					Record: "record-test",
 					Expr:   "rule_test > 0",
 				},
 			},
@@ -52,7 +52,7 @@ var _ = Describe("Create alert rule", func() {
 
 		palert := &promv1.PrometheusRule{}
 		err = cli.Get(context.TODO(), client.ObjectKey{
-			Name:      "test_metrics_alert",
+			Name:      "test-metrics-alert",
 			Namespace: "alert1ns",
 		}, palert)
 		Expect(err).ToNot(HaveOccurred())
